@@ -14,7 +14,8 @@
 	<name>monitoring-gudang</name>
 	<description>Aplikasi Monitoring Gudang PUK Lempuyangan Jogjakarta</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
+		<flywaydb.version>8.0.0</flywaydb.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -36,11 +37,12 @@
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
+			<version>${flywaydb.version}</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.mariadb.jdbc</groupId>
-			<artifactId>mariadb-java-client</artifactId>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
