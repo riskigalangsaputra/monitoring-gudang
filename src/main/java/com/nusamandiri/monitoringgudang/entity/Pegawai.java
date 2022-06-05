@@ -14,7 +14,7 @@ import java.time.LocalDate;
  * @author galang
  */
 @Data
-//@Entity
+@Entity
 public class Pegawai extends BaseEntity{
 
     @NotNull @NotEmpty @Column(unique = true) @Size(min = 5, max = 10)
@@ -26,22 +26,16 @@ public class Pegawai extends BaseEntity{
     @NotNull @Enumerated(EnumType.STRING)
     private JenisKelamin jenisKelamin;
 
-    @NotNull
     private LocalDate tanggalLahir;
 
-    @NotNull @NotEmpty @Size(max = 15)
+    @NotNull @NotEmpty @Size(max = 15) @Column(unique = true)
     private String telepon;
 
-    @Email @Size(max = 30)
+    @Email @Size(max = 30) @Column(unique = true)
     private String email;
 
     @Size(max = 255)
     private String alamat;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "id_user")
-    private User user;
 
     public enum JenisKelamin {
         PRIA, WANITA
