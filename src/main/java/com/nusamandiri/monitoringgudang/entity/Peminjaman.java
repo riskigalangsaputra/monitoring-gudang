@@ -22,7 +22,6 @@ public class Peminjaman extends BaseEntity {
     @ManyToOne
     private User user;
 
-    @NotNull()
     private Integer qty;
 
     private LocalDateTime tglPinjam;
