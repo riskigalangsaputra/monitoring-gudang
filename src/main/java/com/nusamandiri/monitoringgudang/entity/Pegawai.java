@@ -31,7 +31,7 @@ public class Pegawai extends BaseEntity{
     @NotNull @NotEmpty @Size(max = 15) @Column(unique = true)
     private String telepon;
 
-    @Email @Size(max = 30) @Column(unique = true)
+    @NotNull @NotEmpty @Email @Size(max = 30) @Column(unique = true)
     private String email;
 
     @Size(max = 255)

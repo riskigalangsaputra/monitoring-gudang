@@ -9,7 +9,7 @@ create table pegawai(
     jenis_kelamin varchar(10) not null,
     tanggal_lahir date,
     telepon varchar(15) not null,
-    email varchar(30),
+    email varchar(30) not null,
     alamat varchar(100),
     primary key (id),
     unique (nipp, telepon, email)
@@ -35,7 +35,6 @@ create table barang(
     created timestamp,
     code varchar(100) not null,
     nama varchar(100) not null,
-    kondisi varchar(100) not null,
     id_kategori varchar(36) not null,
     barcode varchar(255) not null,
     qty integer not null,

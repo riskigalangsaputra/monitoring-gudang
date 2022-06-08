@@ -21,9 +21,6 @@ public class Barang extends BaseEntity {
     @NotNull @NotEmpty @Size(max = 100)
     private String nama;
 
-    @NotNull @NotEmpty @Size(max = 100)
-    private String kondisi;
-
     @NotNull
     @ManyToOne
     @JoinColumn(name = "id_kategori")
