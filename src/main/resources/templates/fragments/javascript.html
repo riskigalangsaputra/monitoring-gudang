@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="javascript">
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <script th:src="@{/assets/js/popper.min.js}"></script>
+    <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+
+    <!-- simplebar js -->
+    <script th:src="@{/assets/plugins/simplebar/js/simplebar.js}"></script>
+    <!-- sidebar-menu js -->
+    <script th:src="@{/assets/js/sidebar-menu.js}"></script>
+    <!-- loader scripts -->
+    <script th:src="@{/assets/js/jquery.loading-indicator.js}"></script>
+    <!-- Custom scripts -->
+    <script th:src="@{/assets/js/app-script.js}"></script>
+    <!-- Chart js -->
+
+    <script th:src="@{/assets/plugins/Chart.js/Chart.min.js}"></script>
+
+    <!-- Index js -->
+    <script th:src="@{/assets/js/index.js}"></script>
+</div>
+</body>
+</html>
