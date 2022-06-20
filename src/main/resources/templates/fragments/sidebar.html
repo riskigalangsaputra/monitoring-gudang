@@ -12,53 +12,56 @@
             </a>
         </div>
         <ul class="sidebar-menu do-nicescrol">
-            <li class="sidebar-header">MAIN NAVIGATION</li>
-            <li>
-                <a th:href="@{/index.html}">
+            <li class="sidebar-header"></li>
+            <li th:classappend="${activeTab == 'DASHBOARD' ? 'active' : null }">
+                <a th:href="@{/}">
                     <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
-
-            <li>
-                <a th:href="@{/icons.html}">
-                    <i class="zmdi zmdi-invert-colors"></i> <span>UI Icons</span>
+            <li class="sidebar-header">DATA MASTER</li>
+            <li th:classappend="${activeTab == 'MASTER_KATEGORI' ? 'active' : null }">
+                <a th:href="@{/master/kategori}">
+                    <i class="zmdi zmdi-invert-colors"></i> <span>Master Kategori</span>
                 </a>
             </li>
 
-            <li>
-                <a th:href="@{/forms.html}">
-                    <i class="zmdi zmdi-format-list-bulleted"></i> <span>Forms</span>
+            <li th:classappend="${activeTab == 'MASTER_BARANG' ? 'active' : null }">
+                <a th:href="@{/master/barang}">
+                    <i class="zmdi zmdi-format-list-bulleted"></i> <span>Master Barang</span>
+                </a>
+            </li>
+            <li class="sidebar-header">USER MANAGEMENT</li>
+            <li th:classappend="${activeTab == 'PERMISSION' ? 'active' : null }">
+                <a th:href="@{/user_management/permission}">
+                    <i class="zmdi zmdi-grid"></i> <span>Data Permission</span>
+                </a>
+            </li>
+            <li th:classappend="${activeTab == 'PEGAWAI' ? 'active' : null }">
+                <a th:href="@{/user_management/pegawai}">
+                    <i class="zmdi zmdi-grid"></i> <span>Data Pegawai</span>
+                </a>
+            </li>
+            <li class="sidebar-header">MAIN NAVIGATION</li>
+            <li th:classappend="${activeTab == 'PEMINJAMAN' ? 'active' : null }">
+                <a th:href="@{/peminjaman}">
+                    <i class="zmdi zmdi-face"></i> <span>Peminjaman</span>
+                </a>
+            </li>
+            <li th:classappend="${activeTab == 'SUKU_CADANG' ? 'active' : null }">
+                <a th:href="@{/suku_cadang}">
+                    <i class="zmdi zmdi-face"></i> <span>Suku Cadang</span>
                 </a>
             </li>
 
-            <li>
-                <a th:href="@{/tables.html}">
-                    <i class="zmdi zmdi-grid"></i> <span>Tables</span>
+            <li class="sidebar-header">LAPORAN</li>
+            <li th:classappend="${activeTab == 'LAPORAN_PEMINJAMAN' ? 'active' : null }">
+                <a th:href="@{/laporan/peminjaman}">
+                    <i class="zmdi zmdi-face"></i> <span>Peminjaman</span>
                 </a>
             </li>
-
-            <li>
-                <a th:href="@{/calendar.html}">
-                    <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
-                    <small class="badge float-right badge-light">New</small>
-                </a>
-            </li>
-
-            <li>
-                <a th:href="@{/profile.html}">
-                    <i class="zmdi zmdi-face"></i> <span>Profile</span>
-                </a>
-            </li>
-
-            <li>
-                <a th:href="@{/login.html}" target="_blank">
-                    <i class="zmdi zmdi-lock"></i> <span>Login</span>
-                </a>
-            </li>
-
-            <li>
-                <a th:href="@{/register.html}" target="_blank">
-                    <i class="zmdi zmdi-account-circle"></i> <span>Registration</span>
+            <li th:classappend="${activeTab == 'LAPORAN_SUKU_CADANG' ? 'active' : null }">
+                <a th:href="@{/laporan/suku_cadang}">
+                    <i class="zmdi zmdi-lock"></i> <span>Suku Cadang</span>
                 </a>
             </li>
         </ul>
