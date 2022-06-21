@@ -25,10 +25,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <form class="search-bar">
-                        <input type="text" class="form-control" placeholder="Enter keywords">
-                        <a href="javascript:void();"><i class="icon-magnifier"></i></a>
-                    </form>
+                    <div class="alert alert-success fade show m-b-20" th:if="${successMessage}">
+                        <span class="close" data-dismiss="alert">×</span>
+                        <strong>Success!</strong>
+                        <span th:text="${success}"></span>
+                    </div>
+
+                    <div class="alert alert-danger fade show m-b-20" th:if="${errorMessage}">
+                        <span class="close" data-dismiss="alert">×</span>
+                        <strong>Error!</strong>
+                        <span th:text="${error}"></span>
+                    </div>
+
                 </li>
             </ul>
 
