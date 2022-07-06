@@ -22,7 +22,7 @@ public class BarangDetail {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "id_barang")
-    private Barang barang;
+    private AlatKerja alatKerja;
 
     @NotNull @NotEmpty @Size(max = 100)
     private String deskripsi;

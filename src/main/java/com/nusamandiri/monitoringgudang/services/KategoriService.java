@@ -39,6 +39,10 @@ public class KategoriService {
         return Optional.empty();
     }
 
+    public Iterable<Kategori> getKategoriIterable() {
+        return kategoriDao.findAll();
+    }
+
     public void validateKategori(Kategori kategori, BindingResult bindingResult) {
         Kategori k = kategoriDao.findByNamaIgnoreCase(kategori.getNama());
         if (!ValidateHelper.validateEntity(k, kategori.getId())) {
