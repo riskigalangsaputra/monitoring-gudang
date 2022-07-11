@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="nav-menu">
+    <ul class="nav">
+        <li class="nav-item" th:classappend="${#strings.containsIgnoreCase(activeTab,'DASHBOARD') ? 'active' : null}">
+            <a th:href="@{/}" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> Dashboard</a>
+        </li>
+        <li class="nav-item" th:classappend="${#strings.containsIgnoreCase(activeTab,'MASTER') ? 'active' : null}" sec:authorize="hasAnyRole('ROLE_VIEW_MASTER')">
+            <a href="" class="nav-link with-sub"><i class="typcn typcn-book"></i> Master</a>
+            <div class="az-menu-sub">
+                <div class="container">
+                    <div>
+                        <nav class="nav">
+                            <a th:href="@{/master/kategori}" class="nav-link" th:classappend="${#strings.containsIgnoreCase(activeTab,'MASTER_KATEGORI') ? 'active' : null}">Kategori</a>
+                            <a th:href="@{/master/alat_kerja}" class="nav-link" th:classappend="${#strings.containsIgnoreCase(activeTab,'MASTER_ALAT') ? 'active' : null}">Alat Kerja</a>
+                        </nav>
+                    </div>
+                </div><!-- container -->
+            </div>
+        </li>
+        <li class="nav-item" th:classappend="${#strings.containsIgnoreCase(activeTab,'PEMINJAMAN') ? 'active' : null}">
+            <a th:href="@{/peminjaman}" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Peminjaman</a>
+        </li>
+        <li class="nav-item" th:classappend="${#strings.containsIgnoreCase(activeTab,'LAPORAN') ? 'active' : null}" sec:authorize="hasAnyRole('ROLE_VIEW_LAPORAN_ADMIN')">
+            <a th:href="@{/laporan}" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Laporan</a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

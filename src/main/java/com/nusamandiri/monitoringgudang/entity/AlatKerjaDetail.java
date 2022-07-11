@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
  * @author galang
  */
 @Data @Entity
-public class BarangDetail {
+public class AlatKerjaDetail {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -21,7 +21,7 @@ public class BarangDetail {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "id_barang")
+    @JoinColumn(name = "id_alat_kerja")
     private AlatKerja alatKerja;
 
     @NotNull @NotEmpty @Size(max = 100)

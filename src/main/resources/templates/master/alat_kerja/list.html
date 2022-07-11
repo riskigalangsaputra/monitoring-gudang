@@ -1,0 +1,71 @@
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}"
+        th:with="activeTab='MASTER_BARANG'">
+
+<head>
+    <div layout:fragment="customCss"></div>
+</head>
+<body>
+<div layout:fragment="mainContent">
+    <div class="row" style="margin-top:20px;">
+        <div class="col-lg-12">
+            <a th:href="@{/master/alat_kerja/form}" class="btn btn-outline-success btn-sm">Add New</a>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" style="margin-bottom:50px;">
+                        <form class="search-bar" th:action="@{/master/alatKerja}" th:object="${params}">
+                            <input type="text" th:field="*{value}" class="form-control" placeholder="Cari..."
+                                   autocomplete="off">
+                            <a href="javascript:void();"><i class="icon-magnifier"></i></a>
+                        </form>
+                    </h5>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Code</th>
+                                <th scope="col">Kategori</th>
+                                <th scope="col">Nama Barang</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Aksi</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="data : ${datas}">
+                                <td>
+                                    <a th:href="@{/master/alatKerja/detail(id = ${data.id})}" th:text="${data.code}"></a>
+                                </td>
+                                <td th:text="${data.kategori.nama}"></td>
+                                <td th:text="${data.nama}"></td>
+                                <td th:text="${data.qty}"></td>
+                                <td>
+                                    <a th:href="@{/master/alatKerja/form(id = ${data.id})}"class="btn btn-outline-warning btn-sm" title="Edit"><span class="fa fa-edit"></span></a>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(datas.content)}">
+                                <td colspan="5" class="text-center">Belum ada data</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center bd-highlight mb-3">
+            <div class="form-group col-md-6 d-flex justify-content-center">
+                <nav aria-label="Page navigation example">
+                    <ul th:if="${not #lists.isEmpty(datas.content)}" class="pagination pagination-sm m-0"
+                        sd:pagination="full"></ul>
+                </nav>
+            </div>
+        </div>
+    </div><!--End Row-->
+</div>
+</body>
+</html>

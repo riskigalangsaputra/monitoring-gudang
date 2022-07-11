@@ -1,0 +1,109 @@
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}"
+        th:with="activeTab='PEMINJAMAN_LIST'">
+
+<head>
+    <div layout:fragment="customCss"></div>
+</head>
+<body>
+<div layout:fragment="mainContent">
+    <div class="az-content-breadcrumb">
+        <span>Peminjaman</span>
+        <span>Data</span>
+    </div>
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${success}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <span th:text="${error}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="az-content-label mg-b-5">Data Peminjaman</div>
+    <p class="mg-b-20"></p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover mg-b-0">
+            <thead>
+            <tr>
+                <th>Tagggal Jatuh Tempo</th>
+                <th>Code</th>
+                <th sec:authorize="hasAnyRole('ROLE_VIEW_PEMINJAMAN_PEGAWAI')">Start Code</th>
+                <th sec:authorize="hasAnyRole('ROLE_VIEW_PEMINJAMAN_PEGAWAI')">End Code</th>
+                <th>Status</th>
+                <th class="text-center">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="data : ${datas}">
+                <td  th:if="${data.tanggalJatuhTempo} != null" th:text="${#temporals.format(data.tanggalJatuhTempo, 'dd-MM-yyyy HH:mm')}">k</td>
+                <td  th:if="${data.tanggalJatuhTempo} == null">-</td>
+                <td th:text="${data.code}">k</td>
+                <td th:if="${data.startCode} != null" th:text="${data.startCode}"
+                    sec:authorize="hasAnyRole('ROLE_VIEW_PEMINJAMAN_PEGAWAI')">k
+                </td>
+                <td th:if="${data.endCode} != null" th:text="${data.endCode}"
+                    sec:authorize="hasAnyRole('ROLE_VIEW_PEMINJAMAN_PEGAWAI')">k
+                </td>
+                <td th:if="${data.startCode} == null" sec:authorize="hasAnyRole('ROLE_VIEW_PEMINJAMAN_PEGAWAI')">-</td>
+                <td th:if="${data.endCode} == null" sec:authorize="hasAnyRole('ROLE_VIEW_PEMINJAMAN_PEGAWAI')">-</td>
+                <td th:text="${data.statusPeminjaman}">k</td>
+                <td style="width:20%">
+                    <div class="text-center">
+                        <h4>
+                            <span sec:authorize="hasAnyRole('ROLE_VIEW_PEMINJAMAN_ADMIN')"
+                                  th:if="${#strings.equalsIgnoreCase(data.statusPeminjaman, 'WAITING')}">
+
+                                <a th:href="@{/peminjaman/approve(id=${data.id})}"
+                                   onclick="return confirm('Apakah anda yakin menerima pengajuan ?')"
+                                   title="Terima">
+                                <i class="typcn typcn-tick"></i></a> |
+
+                                <a th:href="@{/peminjaman/tolak}"
+                                   onclick="return confirm('Apakah anda yakin menolak pengajuan ?')"
+                                   title="Tolak">
+                                    <i class="typcn typcn-delete-outline"></i></a> |
+                            </span>
+
+                            <span sec:authorize="hasAnyRole('ROLE_VIEW_PEMINJAMAN_ADMIN')"
+                                  th:if="${#strings.equalsIgnoreCase(data.statusPeminjaman, 'APPROVED')}">
+
+                                <a th:href="@{/peminjaman/on_going(id=${data.id})}" title="Proses">
+                                <i class="typcn typcn-edit"></i></a> |
+                            </span>
+
+                            <span sec:authorize="hasAnyRole('ROLE_VIEW_PEMINJAMAN_ADMIN')"
+                                  th:if="${#strings.equalsIgnoreCase(data.statusPeminjaman, 'ON_GOING')}">
+
+                                <a th:href="@{/peminjaman/done(id=${data.id})}" title="Selesai">
+                                <i class="typcn typcn-input-checked"></i></a> |
+                            </span>
+
+                            <a th:href="@{/peminjaman/detail(id=${data.id})}" title="Detail"><i
+                                    class="typcn typcn-eye-outline"></i></a>
+
+                        </h4>
+                    </div>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(datas.content)}">
+                <td colspan="6" class="text-center">Belum ada data</td>
+            </tr>
+            </tbody>
+        </table>
+    </div><!-- table-responsive -->
+    <div style="margin-top:10px;">
+        <nav aria-label="Page navigation example">
+            <ul th:if="${not #lists.isEmpty(datas.content)}" class="pagination pagination-sm m-0"
+                sd:pagination="full"></ul>
+        </nav>
+    </div>
+</div>
+</body>
+</html>

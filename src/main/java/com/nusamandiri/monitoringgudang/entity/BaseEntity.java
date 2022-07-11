@@ -29,15 +29,9 @@ public class BaseEntity {
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     private String id;
 
-    @CreatedBy
-    private String createdBy;
-
-    @LastModifiedBy
-    private String updatedBy;
-
     @CreatedDate
-    private LocalDateTime created;
+    private LocalDateTime created = LocalDateTime.now();
 
     @LastModifiedDate
-    private LocalDateTime updated;
+    private LocalDateTime updated = LocalDateTime.now();
 }

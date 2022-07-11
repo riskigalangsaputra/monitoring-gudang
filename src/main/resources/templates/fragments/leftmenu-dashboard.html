@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="leftmenu-dashboard">
+    <div class="component-item">
+        <label>Main</label>
+        <nav class="nav flex-column">
+            <a th:href="@{/}" class="nav-link"
+               th:classappend="${activeTab == 'DASHBOARD' ? 'active' : null }">Dashboard</a>
+        </nav>
+    </div><!-- component-item -->
+</div>
+</body>
+</html>

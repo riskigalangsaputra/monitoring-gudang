@@ -39,6 +39,10 @@ public class KategoriService {
         return Optional.empty();
     }
 
+    public Iterable<Kategori> findAllIterableKategori() {
+        return kategoriDao.findAll();
+    }
+
     public Iterable<Kategori> getKategoriIterable() {
         return kategoriDao.findAll();
     }

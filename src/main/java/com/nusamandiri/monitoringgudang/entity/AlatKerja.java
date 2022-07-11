@@ -1,19 +1,21 @@
 package com.nusamandiri.monitoringgudang.entity;
 
+import com.nusamandiri.monitoringgudang.utils.Constant;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author galang
  */
 @Data @Entity
-public class Barang extends BaseEntity {
+public class AlatKerja extends BaseEntity {
 
     @NotNull @NotEmpty @Column(unique = true)
     private String code;
@@ -26,13 +28,14 @@ public class Barang extends BaseEntity {
     @JoinColumn(name = "id_kategori")
     private Kategori kategori;
 
-    @NotNull @NotEmpty
-    private String barcode;
+    @Enumerated(EnumType.STRING)
+    private Constant.StatusAlatKerja status;
 
-    @NotNull
-    private Integer qty;
+    @OneToMany(mappedBy = "alatKerja", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AlatKerjaDetail> alatKerjaDetails = new ArrayList<>();
 
-    @OneToMany(mappedBy = "barang", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<BarangDetail> barangDetails = new HashSet<>();
+    @Valid
+    @Transient
+    private List<AlatKerjaDetail> details = new ArrayList<>();
 
 }

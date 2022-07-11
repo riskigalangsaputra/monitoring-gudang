@@ -2,39 +2,53 @@
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layout}"
-        th:with="activeTab='MASTER_KATEGORI'">
+        th:with="activeTab='MASTER_KATEGORI_FORM'">
 
 <head>
     <div layout:fragment="customCss"></div>
 </head>
 <body>
 <div layout:fragment="mainContent">
-    <div class="row mt-3">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-title">Form Input</div>
-                    <hr>
-                    <form th:object="${kategori}" th:action="@{/master/kategori/form}" method="post">
-                        <input type="hidden" th:field="*{id}">
-                        <div class="form-group">
-                            <label>Nama *</label>
-                            <input type="text" class="form-control" th:field="*{nama}"
-                                   placeholder="Masukan nama kategori" autocomplete="off">
-                        </div>
-                        <div class="form-group">
-                            <label>Deskripsi</label>
-                            <input type="text" class="form-control" th:field="*{deskripsi}"
-                                   placeholder="Masukan deskripsi kategori" autocomplete="off">
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-light px-5">Submit</button>
-                        </div>
-                    </form>
-                </div>
+    <div class="az-content-breadcrumb">
+        <span>Master</span>
+        <span>Kategori</span>
+        <span>Form</span>
+    </div>
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${success}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <span th:text="${error}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="az-content-label mg-b-5">Form Input</div>
+    <p class="mg-b-20"></p>
+    <form th:action="@{/kategori/form}" method="POST" th:object="${kategori}">
+        <input type="hidden" th:field="*{id}">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Nama Kategori</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" th:field="*{nama}" placeholder="Masukan nama kategori">
             </div>
         </div>
-    </div><!--End Row-->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Deskripsi</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="3" th:field="*{deskripsi}"
+                          placeholder="Masukan deskripsi"></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
 </div>
 </body>
 </html>

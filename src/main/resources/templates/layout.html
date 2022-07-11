@@ -1,126 +1,105 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <div th:include="fragments/head :: head" th:remove="tag">Head</div>
     <div layout:fragment="customCss" th:remove="tag"></div>
 </head>
+<body>
 
-<body class="bg-theme bg-theme1">
-
-<!-- Start wrapper-->
-<div id="wrapper">
-    <!--Start sidebar-wrapper-->
-    <div th:include="fragments/sidebar :: sidebar" th:remove="tag">sidebar</div>
-    <!--End sidebar-wrapper-->
-
-    <!--Start topbar header-->
-    <header class="topbar-nav">
-        <nav class="navbar navbar-expand fixed-top">
-            <ul class="navbar-nav mr-auto align-items-center">
-                <li class="nav-item">
-                    <a class="nav-link toggle-menu" href="javascript:void();">
-                        <i class="icon-menu menu-icon"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <div class="alert alert-success fade show m-b-20" th:if="${successMessage}">
-                        <span class="close" data-dismiss="alert">×</span>
-                        <strong>Success!</strong>
-                        <span th:text="${success}"></span>
+<div class="az-header">
+    <div class="container">
+        <div class="az-header-left">
+            <a th:href="@{/}" class="az-logo"><span></span>
+                <img th:src="@{/assets/images/kai-logo.png}" class="rounded" alt="logo"
+                     style="width: 100%; height: 20px;">
+            </a>
+            <a href="" id="azMenuShow" class="az-header-menu-icon d-lg-none"><span></span></a>
+        </div><!-- az-header-left -->
+        <div class="az-header-menu">
+            <div class="az-header-menu-header">
+                <a href="index.html" class="az-logo"><span></span> azia</a>
+                <a href="" class="close">&times;</a>
+            </div><!-- az-header-menu-header -->
+            <div th:include="fragments/nav-menu :: nav-menu" th:remove="tag">nav-menu</div>
+        </div><!-- az-header-menu -->
+        <div class="az-header-right">
+            <div class="dropdown az-header-notification">
+                <a href="" class="new"><i class="typcn typcn-bell"></i></a>
+                <div class="dropdown-menu">
+                    <div class="az-dropdown-header mg-b-20 d-sm-none">
+                        <a href="" class="az-header-arrow"><i class="icon ion-md-arrow-back"></i></a>
                     </div>
-
-                    <div class="alert alert-danger fade show m-b-20" th:if="${errorMessage}">
-                        <span class="close" data-dismiss="alert">×</span>
-                        <strong>Error!</strong>
-                        <span th:text="${error}"></span>
+                    <h6 class="az-notification-title">Notifications</h6>
+                    <p class="az-notification-text">You have 2 notification</p>
+                    <div class="az-notification-list">
+                        <div class="media new">
+                            <div class="az-img-user"><img th:src="@{/assets/images/admin-foto.png}" alt=""></div>
+                            <div class="media-body">
+                                <p>Congratulate <strong>Socrates Itumay</strong> for work anniversaries</p>
+                                <span>Mar 15 12:32pm</span>
+                            </div><!-- media-body -->
+                        </div><!-- media -->
+                    </div><!-- az-notification-list -->
+                    <div class="dropdown-footer"><a href="">View All Notifications</a></div>
+                </div><!-- dropdown-menu -->
+            </div><!-- az-header-notification -->
+            <div class="dropdown az-profile-menu">
+                <a href="" class="az-img-user"><img th:src="@{/assets/images/admin-foto.png}" alt=""></a>
+                <div class="dropdown-menu">
+                    <div class="az-dropdown-header d-sm-none">
+                        <a href="" class="az-header-arrow"><i class="icon ion-md-arrow-back"></i></a>
                     </div>
+                    <div class="az-header-profile">
+                        <div class="az-img-user">
+                            <img th:src="@{/assets/images/admin-foto.png}" alt="">
+                        </div><!-- az-img-user -->
+                        <h6 th:if="${userLoggedIn}" th:text="${userLoggedIn.fullname}"></h6>
+                        <span th:if="${userLoggedIn}" th:text="${userLoggedIn.role.description}">Admin Gudang</span>
+                    </div><!-- az-header-profile -->
 
-                </li>
-            </ul>
-
-            <ul class="navbar-nav align-items-center right-nav-link">
-                <li class="nav-item dropdown-lg">
-                    <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown"
-                       href="javascript:void();">
-                        <i class="fa fa-bell-o"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
-                        <span class="user-profile"><img src="https://via.placeholder.com/110x110" class="img-circle"
-                                                        alt="user avatar"></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li class="dropdown-item user-details">
-                            <a href="javaScript:void();">
-                                <div class="media">
-                                    <div class="avatar"><img class="align-self-start mr-3"
-                                                             src="https://via.placeholder.com/110x110"
-                                                             alt="user avatar"></div>
-                                    <div class="media-body">
-                                        <h6 class="mt-2 user-title">Sarajhon Mccoy</h6>
-                                        <p class="user-subtitle">mccoy@example.com</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="dropdown-divider"></li>
-                        <li class="dropdown-divider"></li>
-                        <li class="dropdown-item"><i class="icon-wallet mr-2"></i> Account</li>
-                        <li class="dropdown-divider"></li>
-                        <li class="dropdown-item"><i class="icon-settings mr-2"></i> Change Password</li>
-                        <li class="dropdown-divider"></li>
-                        <li class="dropdown-item">
-                            <form th:action="@{/logout}" method="post" id="logout">
-                                <a href="#" onclick="logout()">
-                                    <i class="icon-power mr-2"></i> Logout
-                                </a>
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <!--End topbar header-->
-
-    <div class="clearfix"></div>
-
-    <div class="content-wrapper">
-        <div class="container-fluid">
-            <!--Start Dashboard Content-->
-            <div layout:fragment="mainContent" th:remove="tag"></div>
-            <!--End Dashboard Content-->
-            <!--start overlay-->
-            <div class="overlay toggle-menu"></div>
-            <!--end overlay-->
-        </div>
-        <!-- End container-fluid-->
-
-    </div><!--End content-wrapper-->
-    <!--Start Back To Top Button-->
-    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-    <!--End Back To Top Button-->
-
-    <!--Start footer-->
-    <footer class="footer">
-        <div class="container">
-            <div class="text-center">
-                Copyright © 2022 Universitas Nusa Mandiri
+                    <a href="" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My Profile</a>
+                    <a href="" class="dropdown-item"><i class="typcn typcn-cog-outline"></i> Account Settings</a>
+                    <form th:action="@{/logout}" method="post" id="logout">
+                        <a href="#" onclick="logout()" class="dropdown-item"><i class="typcn typcn-power-outline"></i> Sign
+                            Out</a>
+                    </form>
+                </div><!-- dropdown-menu -->
             </div>
-        </div>
-    </footer>
-    <!--End footer-->
-</div><!--End wrapper-->
-<!-- Bootstrap core JavaScript-->
+        </div><!-- az-header-right -->
+    </div><!-- container -->
+</div><!-- az-header -->
+
+<div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
+    <div class="container">
+        <div class="az-content-left az-content-left-components">
+            <div th:if="${#strings.containsIgnoreCase(activeTab,'DASHBOARD')}"
+                 th:include="fragments/leftmenu-dashboard :: leftmenu-dashboard" th:remove="tag">leftmenu-dashboard
+            </div>
+            <div th:if="${#strings.containsIgnoreCase(activeTab,'MASTER_KATEGORI')}"
+                 th:include="fragments/leftmenu-kategori :: leftmenu-kategori" th:remove="tag">leftmenu-kategori
+            </div>
+            <div th:if="${#strings.containsIgnoreCase(activeTab,'PEMINJAMAN')}"
+                 th:include="fragments/leftmenu-peminjaman :: leftmenu-peminjaman" th:remove="tag">leftmenu-peminjaman
+            </div>
+        </div><!-- az-content-left -->
+        <div class="az-content-body pd-lg-l-40 d-flex flex-column">
+            <div layout:fragment="mainContent" th:remove="tag"></div>
+            <hr class="mg-y-30">
+
+            <div class="ht-40"></div>
+            <div class="az-footer mg-t-auto">
+                <div class="container">
+                    <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © nusamandiri 2022</span>
+                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Develop by Riski Galang Saputra</span>
+                </div><!-- container -->
+            </div><!-- az-footer -->
+        </div><!-- az-content-body -->
+    </div><!-- container -->
+</div><!-- az-content -->
+
 <div th:include="fragments/javascript :: javascript" th:remove="tag">Javascript</div>
-<div layout:fragment="customJavascript" th:remove="tag">
-    <script>
-            function logout() {
-                document.getElementById("logout").submit();
-            }
-    </script>
-</div>
+<div layout:fragment="customJavascript" th:remove="tag"></div>
 </body>
 </html>

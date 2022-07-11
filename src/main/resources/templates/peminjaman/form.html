@@ -1,0 +1,92 @@
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}"
+        th:with="activeTab='PEMINJAMAN_FORM'">
+
+<head>
+    <div layout:fragment="customCss">
+        <link th:href="@{/assets/daterangepicker/daterangepicker.css}" rel="stylesheet"/>
+        <link th:href="@{/assets/select2/css/select2.min.css}" rel="stylesheet"/>
+        <style th:inline="text">
+        .select2-container {
+            width: 100% !important;
+        }
+
+        </style>
+    </div>
+</head>
+<body>
+<div layout:fragment="mainContent">
+    <div class="az-content-breadcrumb">
+        <span>Peminjaman</span>
+        <span>Form</span>
+    </div>
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${success}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <span th:text="${error}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="az-content-label mg-b-5">Form Input</div>
+    <p class="mg-b-20"></p>
+    <form th:action="@{/peminjaman/form}" th:object="${peminjamanDto}" method="post">
+        <div class="form-group">
+            <label>Peminjaman Detail</label>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover mg-b-0">
+                    <thead>
+                    <tr>
+                        <!--                        <th>Kategori</th>-->
+                        <th>Barang</th>
+                        <th style="width:10%">
+                            <button type="submit" name="addDetail" class="btn btn-info btn-icon" title="Add"><i
+                                    class="typcn typcn-plus-outline"></i></button>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="detail, i : ${peminjamanDto.details}">
+                        <!--                        <td>-->
+                        <!--                            <select th:name="${'details['+i.index+'].alatKerja.kategori'}" class="form-control select2-kategori">-->
+                        <!--                                <option value="" style="display: none">&#45;&#45; Pilih &#45;&#45;</option>-->
+                        <!--&lt;!&ndash;                                <option th:if="${detail.alatkerja.kategori != null}" th:value="${detail.alatkerja.kategori.id}" th:text="${detail.alatkerja.kategori.nama}"></option>&ndash;&gt;-->
+                        <!--                            </select>-->
+                        <!--                        </td>-->
+                        <td>
+                            <select th:name="${'details['+i.index+'].alatKerja'}"
+                                    class="form-control select2-alatkerja">
+                                <option value="" style="display: none">-- Pilih --</option>
+                                <!--                                <option th:if="${detail.alatkerja != null}" th:value="${detail.alatkerja.id}" th:text="${detail.alatkerja.nama}"></option>-->
+                            </select>
+                        </td>
+                        <td style="width:10%">
+                            <button type="submit" name="removeDetail" th:value="${i.index}"
+                                    class="btn btn-danger btn-icon"
+                                    title="Remove"><i
+                                    class="typcn typcn-delete-outline"></i></button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div><!-- table-responsive -->
+        </div>
+        <button type="submit" class="btn btn-primary">Buat pengajuan</button>
+    </form>
+</div>
+
+<div layout:fragment="customJavascript">
+    <script th:src="@{/assets/moment/moment.min.js}"></script>
+    <script th:src="@{/assets/daterangepicker/daterangepicker.js}"></script>
+    <script th:src="@{/assets/daterangepicker/daterange.js}"></script>
+    <script th:src="@{/assets/select2/js/select2.min.js}"></script>
+    <script th:src="@{/assets/select2/js/select2-impl.js}"></script>
+</div>
+</body>
+</html>

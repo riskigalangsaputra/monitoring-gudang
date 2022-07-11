@@ -82,7 +82,9 @@ public class WebSecurityConfig {
         http.authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .antMatchers("/login/**").permitAll()
+                                .antMatchers("/assets/**").permitAll()
                                 .antMatchers("/forgot_password/**").permitAll()
+                                .antMatchers("/index/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin()
