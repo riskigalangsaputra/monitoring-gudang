@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="leftmenu-peminjaman">
+  <div class="component-item">
+    <label>Peminjaman</label>
+    <nav class="nav flex-column">
+      <a th:href="@{/peminjaman}" class="nav-link"
+         th:classappend="${activeTab == 'PEMINJAMAN_LIST' ? 'active' : null }">Data Peminjaman</a>
+      <a th:href="@{/peminjaman/form}" class="nav-link" sec:authorize="hasAnyRole('ROLE_VIEW_PEMINJAMAN_PEGAWAI')"
+         th:classappend="${activeTab == 'PEMINJAMAN_FORM' ? 'active' : null }">Form Input</a>
+    </nav>
+  </div><!-- component-item -->
+</div>
+</body>
+</html>

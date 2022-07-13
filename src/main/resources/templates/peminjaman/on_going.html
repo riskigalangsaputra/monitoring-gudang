@@ -1,0 +1,58 @@
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}"
+        th:with="activeTab='PEMINJAMAN_FORM'">
+
+<head>
+    <div layout:fragment="customCss">
+        <link th:href="@{/assets/daterangepicker/daterangepicker.css}" rel="stylesheet"/>
+        <style th:inline="text">
+        </style>
+    </div>
+</head>
+<body>
+<div layout:fragment="mainContent">
+    <div class="az-content-breadcrumb">
+        <span>Peminjaman</span>
+        <span>Form Proses</span>
+    </div>
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${success}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <span th:text="${error}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="az-content-label mg-b-5">Form Input</div>
+    <p class="mg-b-20"></p>
+    <form th:action="@{/peminjaman/on_going}" th:object="${onGoingDto}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Start Code</label>
+                <input type="text" class="form-control" th:field="*{startCode}"
+                       placeholder="Masukan Start Code dari pegawai" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Tanggal Jatuh Tempo</label>
+                <input type="text" class="form-control single-date" th:field="*{tanggalJatuhTempo}"
+                       placeholder="YYYY-MM-DD" readonly required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Proses</button>
+    </form>
+</div>
+
+<div layout:fragment="customJavascript">
+    <script th:src="@{/assets/moment/moment.min.js}"></script>
+    <script th:src="@{/assets/daterangepicker/daterangepicker.js}"></script>
+    <script th:src="@{/assets/daterangepicker/daterange.js}"></script>
+</div>
+</body>
+</html>

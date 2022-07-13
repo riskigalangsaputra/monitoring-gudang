@@ -3,24 +3,20 @@
       xmlns:th="http://www.thymeleaf.org">
 <body>
 <div th:fragment="javascript">
-    <script th:src="@{/assets/js/jquery.min.js}"></script>
-    <script th:src="@{/assets/js/popper.min.js}"></script>
-    <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+    <script th:src="@{/assets/lib/jquery/jquery.min.js}"></script>
+    <script th:src="@{/assets/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/assets/lib/ionicons/ionicons.js}"></script>
+    <script th:src="@{/assets/lib/chart.js/Chart.bundle.min.js}"></script>
+    <!--    <script th:src="@{/assets/lib/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js}"></script>-->
 
-    <!-- simplebar js -->
-    <script th:src="@{/assets/plugins/simplebar/js/simplebar.js}"></script>
-    <!-- sidebar-menu js -->
-    <script th:src="@{/assets/js/sidebar-menu.js}"></script>
-    <!-- loader scripts -->
-    <script th:src="@{/assets/js/jquery.loading-indicator.js}"></script>
-    <!-- Custom scripts -->
-    <script th:src="@{/assets/js/app-script.js}"></script>
-    <!-- Chart js -->
+    <script th:src="@{/assets/js/azia.js}"></script>
+    <script>
+        var baseUrl = "[[@{/}]]";
 
-    <script th:src="@{/assets/plugins/Chart.js/Chart.min.js}"></script>
-
-    <!-- Index js -->
-    <script th:src="@{/assets/js/index.js}"></script>
+         function logout() {
+                document.getElementById("logout").submit();
+            }
+    </script>
 </div>
 </body>
 </html>

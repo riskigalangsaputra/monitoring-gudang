@@ -1,0 +1,83 @@
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}"
+        th:with="activeTab='MASTER_ALAT_KERJA'">
+
+<head>
+    <div layout:fragment="customCss"></div>
+</head>
+<body>
+<div layout:fragment="mainContent">
+    <form th:object="${alatKerja}" th:action="@{/master/alat_kerja/form}" method="post">
+        <div class="row mt-3">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">Form Input</div>
+                        <hr>
+                        <input type="hidden" th:field="*{id}">
+                        <div class="form-group">
+                            <label>Kategori *</label>
+                            <select class="form-control" th:field="*{kategori}">
+                                <option value="" style="display: none">-- Pilih Kategori --</option>
+                                <option th:each="k : ${kategoris}" th:value="${k.id}" th:text="${k.nama}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Nama *</label>
+                            <input type="text" class="form-control" th:field="*{nama}"
+                                   placeholder="Masukan nama barang" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label>Qty *</label>
+                            <input type="number" class="form-control" th:field="*{qty}"
+                                   placeholder="Masukan jumlah barang" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-light px-5">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">Detail Barang</div>
+                        <hr>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Deskripsi *</th>
+                                    <th scope="col">
+                                        <button type="submit" name="addDetail" class="btn btn-success btn-sm"
+                                                title="Add"><span
+                                                class="fa fa-plus"></span></button>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="detail, i : ${alatKerja.details}">
+                                    <td>
+                                        <input type="text" class="form-control"
+                                               th:name="${'detail['+i.index+'].keterangan'}"
+                                               placeholder="Masukan deskripsi alatKerja" autocomplete="off">
+                                    </td>
+                                    <td>
+                                        <button type="submit" name="removeDetail" th:value="${i.index}"
+                                                class="btn btn-danger btn-sm" title="Remove"><span
+                                                class="fa fa-close"></span></button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--End Row-->
+    </form>
+</div>
+</body>
+</html>

@@ -2,70 +2,69 @@
         xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layout}"
-        th:with="activeTab='MASTER_KATEGORI'">
+        th:with="activeTab='MASTER_KATEGORI_LIST'">
 
 <head>
     <div layout:fragment="customCss"></div>
 </head>
 <body>
 <div layout:fragment="mainContent">
-    <div class="row">
-        <div class="col-lg-12">
-            <a href="#" class="btn btn-outline-success btn-sm">Add New</a>
-        </div>
+    <div class="az-content-breadcrumb">
+        <span>Master</span>
+        <span>Kategori</span>
     </div>
-    <div class="row mt-3" style="margin-bottom:-30px;">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="col-lg-5">
-                        <div class="card-title">
-                        <form class="search-bar">
-                            <input type="text" class="form-control" placeholder="Enter keywords">
-                            <a href="javascript:void();"><i class="icon-magnifier"></i></a>
-                        </form>
-                        </div>
+    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${successMessage}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <span th:text="${errorMessage}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="az-content-label mg-b-5">Data Kategori</div>
+    <p class="mg-b-20"></p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover mg-b-0">
+            <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Deskripsi</th>
+                <th class="text-center">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="data : ${datas}">
+                <td th:text="${data.nama}"></td>
+                <td th:text="${data.deskripsi}"></td>
+                <td style="width:10%">
+                    <div class="text-center">
+                        <h4>
+                            <a th:href="@{/kategori/form(id=${data.id})}" title="Edit"><i class=" typcn typcn-edit"></i></a>
+                            |
+                            <a th:href="@{/kategori/delete(id=${data.id})}" title="Delete"
+                               onclick="return confirm('Apakah anda yakin data dihapus ?')"><i
+                                    class=" typcn typcn-trash"></i></a>
+                        </h4>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div><!--End Row-->
-    <div class="row mt-3">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        Data Kategori
-                    </h5>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">Nama Kategori</th>
-                                <th scope="col">Deskripsi</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="data : ${datas}">
-                                <td th:text="${data.nama}"></td>
-                                <td th:text="${data.deskripsi}"></td>
-                            </tr>
-                            <tr th:if="${#lists.isEmpty(datas.content)}">
-                                <td colspan="2" class="text-center">Belum ada data</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <nav aria-label="Page navigation example">
-                            <ul th:if="${not #lists.isEmpty(datas.content)}" class="pagination pagination-sm m-0"
-                                sd:pagination="full"></ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><!--End Row-->
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(datas.content)}">
+                <td colspan="3" class="text-center">Belum ada data</td>
+            </tr>
+            </tbody>
+        </table>
+    </div><!-- table-responsive -->
+    <div style="margin-top:10px;">
+        <nav aria-label="Page navigation example">
+            <ul th:if="${not #lists.isEmpty(datas.content)}" class="pagination pagination-sm m-0"
+                sd:pagination="full"></ul>
+        </nav>
+    </div>
 </div>
 </body>
 </html>
