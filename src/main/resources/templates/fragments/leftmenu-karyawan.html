@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="leftmenu-karyawan">
+  <div class="component-item">
+    <label>Master Karyawan</label>
+    <nav class="nav flex-column">
+      <a th:href="@{/master/karyawan}" class="nav-link"
+         th:classappend="${activeTab == 'MASTER_KARYAWAN_LIST' ? 'active' : null }">Data Karyawan</a>
+      <a th:href="@{/master/karyawan/form}" class="nav-link"
+         th:classappend="${activeTab == 'MASTER_KARYAWAN_FORM' ? 'active' : null }">Form Input</a>
+    </nav>
+  </div><!-- component-item -->
+</div>
+</body>
+</html>

@@ -13,14 +13,14 @@
         <span>Master</span>
         <span>Kategori</span>
     </div>
-    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
-        <span th:text="${successMessage}"></span>
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${success}"></span>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
-        <span th:text="${errorMessage}"></span>
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <span th:text="${error}"></span>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -44,9 +44,9 @@
                 <td style="width:10%">
                     <div class="text-center">
                         <h4>
-                            <a th:href="@{/kategori/form(id=${data.id})}" title="Edit"><i class=" typcn typcn-edit"></i></a>
+                            <a th:href="@{/master/kategori/form(id=${data.id})}" title="Edit"><i class=" typcn typcn-edit"></i></a>
                             |
-                            <a th:href="@{/kategori/delete(id=${data.id})}" title="Delete"
+                            <a th:href="@{/master/kategori/delete(id=${data.id})}" title="Delete"
                                onclick="return confirm('Apakah anda yakin data dihapus ?')"><i
                                     class=" typcn typcn-trash"></i></a>
                         </h4>

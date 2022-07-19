@@ -16,13 +16,16 @@
                         <nav class="nav">
                             <a th:href="@{/master/kategori}" class="nav-link" th:classappend="${#strings.containsIgnoreCase(activeTab,'MASTER_KATEGORI') ? 'active' : null}">Kategori</a>
                             <a th:href="@{/master/alat_kerja}" class="nav-link" th:classappend="${#strings.containsIgnoreCase(activeTab,'MASTER_ALAT') ? 'active' : null}">Alat Kerja</a>
+                            <a th:href="@{/master/karyawan}" class="nav-link" th:classappend="${#strings.containsIgnoreCase(activeTab,'MASTER_KARYAWAN') ? 'active' : null}">Karyawan</a>
                         </nav>
                     </div>
                 </div><!-- container -->
             </div>
         </li>
         <li class="nav-item" th:classappend="${#strings.containsIgnoreCase(activeTab,'PEMINJAMAN') ? 'active' : null}">
-            <a th:href="@{/peminjaman}" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Peminjaman</a>
+            <a th:href="@{/peminjaman}" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Peminjaman
+                <span th:if="${countWaiting} != 0" sec:authorize="hasAnyRole('ROLE_VIEW_LAPORAN_ADMIN')" class="badge badge-pill badge-danger" th:text="${countWaiting}"></span>
+            </a>
         </li>
         <li class="nav-item" th:classappend="${#strings.containsIgnoreCase(activeTab,'LAPORAN') ? 'active' : null}" sec:authorize="hasAnyRole('ROLE_VIEW_LAPORAN_ADMIN')">
             <a th:href="@{/laporan}" class="nav-link"><i class="typcn typcn-chart-bar-outline"></i> Laporan</a>

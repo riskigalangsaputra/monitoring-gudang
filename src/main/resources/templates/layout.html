@@ -80,8 +80,14 @@
             <div th:if="${#strings.containsIgnoreCase(activeTab,'MASTER_KATEGORI')}"
                  th:include="fragments/leftmenu-kategori :: leftmenu-kategori" th:remove="tag">leftmenu-kategori
             </div>
+            <div th:if="${#strings.containsIgnoreCase(activeTab,'MASTER_ALATKERJA')}"
+                 th:include="fragments/leftmenu-alatkerja :: leftmenu-alatkerja" th:remove="tag">leftmenu-alatkerja
+            </div>
             <div th:if="${#strings.containsIgnoreCase(activeTab,'PEMINJAMAN')}"
                  th:include="fragments/leftmenu-peminjaman :: leftmenu-peminjaman" th:remove="tag">leftmenu-peminjaman
+            </div>
+            <div th:if="${#strings.containsIgnoreCase(activeTab,'MASTER_KARYAWAN')}"
+                 th:include="fragments/leftmenu-karyawan :: leftmenu-karyawan" th:remove="tag">leftmenu-karyawan
             </div>
         </div><!-- az-content-left -->
         <div class="az-content-body pd-lg-l-40 d-flex flex-column">

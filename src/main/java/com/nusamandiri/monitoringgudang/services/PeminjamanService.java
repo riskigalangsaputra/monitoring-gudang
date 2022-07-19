@@ -50,6 +50,18 @@ public class PeminjamanService {
     @Autowired
     private NotifikasiDao notifikasiDao;
 
+    public List<GrafikDto> getDataGrafikGroupByStatus() {
+        return peminjamanDao.countPeminjaman();
+    }
+
+    public long countStatusPeminjaman() {
+        return peminjamanDao.countByStatusPeminjaman(Constant.StatusPeminjaman.WAITING);
+    }
+
+    public List<Last5DataPeminjamanDto> findByLast5Data() {
+        return peminjamanDao.findByLast5Data();
+    }
+
     public Page<Peminjaman> getPeminjamanPage(CommonSearchDto params, Pageable pageable, String username) {
 
         Page<Peminjaman> data = null;
@@ -72,7 +84,8 @@ public class PeminjamanService {
         SpecificationBuilder<Peminjaman> builder = new SpecificationBuilder<>();
         if (StringUtils.hasText(username)) builder.with("karyawan-email", "equal", username);
         for (Peminjaman p : peminjamanDao.findAll(builder.build())) {
-            if (!Constant.StatusPeminjaman.DONE.equals(p.getStatusPeminjaman()) || !Constant.StatusPeminjaman.ON_GOING.equals(p.getStatusPeminjaman())) {
+            if (Constant.StatusPeminjaman.WAITING.equals(p.getStatusPeminjaman()) ||
+                    Constant.StatusPeminjaman.APPROVED.equals(p.getStatusPeminjaman())) {
                 throw new Exception("Tidak dapat melakukan permohonan !");
             }
         }
@@ -122,11 +135,11 @@ public class PeminjamanService {
         }
     }
 
-    public void rejected(RejectedDto dto) {
-        Peminjaman peminjaman = peminjamanDao.findById(dto.getIdPeminjaman()).orElse(null);
+    public void rejected(TolakDto dto) {
+        Peminjaman peminjaman = peminjamanDao.findById(dto.getId()).orElse(null);
         if (peminjaman != null) {
             peminjaman.setStatusPeminjaman(Constant.StatusPeminjaman.REJECTED);
-            peminjaman.setAlasanDitolak(dto.getReason());
+            peminjaman.setAlasanDitolak(dto.getAlasanPenolakan());
             peminjamanDao.save(peminjaman);
 
             Notifikasi notifikasi = new Notifikasi();
@@ -138,6 +151,8 @@ public class PeminjamanService {
     }
 
     public void onGoingProsess(OnGoingDto dto) throws Exception {
+        log.info("==== ID : {}",dto.getId());
+        log.info("==== START CODE : {}",dto.getStartCode());
         Peminjaman p = peminjamanDao.findByStartCodeAndId(dto.getStartCode(), dto.getId()).orElse(null);
         if (p == null) {
             throw new Exception("Start Code salah !");
@@ -149,6 +164,7 @@ public class PeminjamanService {
 
         try {
             p.setTanggalJatuhTempo(dto.getTanggalJatuhTempo());
+            p.setTanggalPeminjaman(LocalDate.now());
             p.setStatusPeminjaman(Constant.StatusPeminjaman.ON_GOING);
             p.setEndCode(getRandomNumberString());
             peminjamanDao.save(p);
@@ -200,6 +216,7 @@ public class PeminjamanService {
                     notifikasiDao.save(notifikasi);
                 }
             });
+            log.info("<<<< END JOB EXPIRED >>>>");
         } catch (Exception e) {
             log.info("<<<< ERROR : {}", e.getMessage());
             e.printStackTrace();
@@ -218,6 +235,13 @@ public class PeminjamanService {
         Peminjaman peminjaman = getPeminjamanById(id);
         doneDto.setId(peminjaman.getId());
         return doneDto;
+    }
+
+    public TolakDto setTolakDto(String id) {
+        TolakDto tolakDto = new TolakDto();
+        Peminjaman peminjaman = getPeminjamanById(id);
+        tolakDto.setId(peminjaman.getId());
+        return tolakDto;
     }
 
     public Peminjaman getPeminjamanById(String id) {

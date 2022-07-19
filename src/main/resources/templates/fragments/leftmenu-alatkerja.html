@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="leftmenu-alatkerja">
+  <div class="component-item">
+    <label>Master Alat Kerja</label>
+    <nav class="nav flex-column">
+      <a th:href="@{/master/alatkerja}" class="nav-link"
+         th:classappend="${activeTab == 'MASTER_ALATKERJA_LIST' ? 'active' : null }">Data Alat Kerja</a>
+      <a th:href="@{/master/alatkerja/form}" class="nav-link"
+         th:classappend="${activeTab == 'MASTER_ALATKERJA_FORM' ? 'active' : null }">Form Input</a>
+    </nav>
+  </div><!-- component-item -->
+</div>
+</body>
+</html>

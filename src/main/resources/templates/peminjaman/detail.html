@@ -1,0 +1,103 @@
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}"
+        th:with="activeTab='PEMINJAMAN_FORM'">
+
+<head>
+    <div layout:fragment="customCss">
+        <link th:href="@{/assets/daterangepicker/daterangepicker.css}" rel="stylesheet"/>
+        <style th:inline="text">
+        </style>
+    </div>
+</head>
+<body>
+<div layout:fragment="mainContent">
+    <div class="az-content-breadcrumb">
+        <span>Peminjaman</span>
+        <span>Data Peminjaman</span>
+        <span>Detail</span>
+    </div>
+    <div class="az-content-label mg-b-5">Detail</div>
+    <p class="mg-b-20"></p>
+    <form th:object="${peminjaman}">
+        <div class="form-group">
+            <label>Nama Karyawan</label>
+            <input type="text" class="form-control"  th:field="*{karyawan.nama}" readonly>
+        </div>
+        <div class="form-group">
+            <label>Created</label>
+            <input type="text" class="form-control" th:value="${#temporals.format(peminjaman.tanggalJatuhTempo, 'dd-MM-yyyy')}" readonly>
+        </div>
+        <div class="form-group">
+            <label>Code</label>
+            <input type="text" class="form-control" th:field="*{code}" readonly>
+        </div>
+        <div class="form-group">
+            <label>Status Peminjaman</label>
+            <input type="text" class="form-control" th:field="*{statusPeminjaman}" readonly>
+        </div>
+        <div class="form-row" sec:authorize="hasAnyRole('ROLE_VIEW_PEMINJAMAN_PEGAWAI')">
+            <div class="form-group col-md-6">
+                <label>Start Code</label>
+                <input type="text" class="form-control" th:field="*{endCode}" readonly>
+            </div>
+            <div class="form-group col-md-6">
+                <label>End Code</label>
+                <input type="text" class="form-control" th:field="*{startCode}" readonly>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Tanggal Peminjaman</label>
+                <input type="text" class="form-control" th:value="${#temporals.format(peminjaman.tanggalPeminjaman, 'dd-MM-yyyy')}" readonly>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Tanggal Pengembalian</label>
+                <input type="text" class="form-control" th:value="${#temporals.format(peminjaman.tanggalPengembalian, 'dd-MM-yyyy')}" readonly>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Waktu Pengambilan Barang</label>
+                <input type="text" class="form-control" th:value="${#temporals.format(peminjaman.waktuPengambilan, 'dd-MM-yyyy HH:mm')}" readonly>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Tanggal Jatuh Tempo</label>
+                <input type="text" class="form-control" th:value="${#temporals.format(peminjaman.tanggalJatuhTempo, 'dd-MM-yyyy')}" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Alasan Penolakan</label>
+            <input type="text" class="form-control" th:field="*{alasanDitolak}" readonly>
+        </div>
+        <div class="form-group">
+            <label>Detail Barang</label>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Code Barang</th>
+                    <th scope="col">Nama Barang</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="data : ${peminjaman.peminjamanDetails}">
+                    <td th:text="${data.alatKerja.kategori.nama}"></td>
+                    <td th:text="${data.alatKerja.code}"></td>
+                    <td th:text="${data.alatKerja.nama}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <a th:href="@{/peminjaman}" class="btn btn-primary">Kembali</a>
+    </form>
+</div>
+
+<div layout:fragment="customJavascript">
+    <script th:src="@{/assets/moment/moment.min.js}"></script>
+    <script th:src="@{/assets/daterangepicker/daterangepicker.js}"></script>
+    <script th:src="@{/assets/daterangepicker/daterange.js}"></script>
+</div>
+</body>
+</html>
