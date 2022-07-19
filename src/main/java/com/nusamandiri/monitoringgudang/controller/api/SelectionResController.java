@@ -41,7 +41,7 @@ public class SelectionResController {
             CommonSearchDto params,
             @PageableDefault Pageable pageable) {
         try {
-            return new Select2Dto(alatKerjaService.getAlatKerjaPage(params, substractOnePage(pageable)));
+            return new Select2Dto(alatKerjaService.getAlatKerjaPage2(params, substractOnePage(pageable)));
         } catch (Exception e) {
             log.error("[SELECT2-API-ERROR] ALAT KERJA : {}", e.getMessage(), e);
         }

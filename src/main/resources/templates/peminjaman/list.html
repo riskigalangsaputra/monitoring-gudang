@@ -53,7 +53,24 @@
                 </td>
                 <td th:if="${data.startCode} == null" sec:authorize="hasAnyRole('ROLE_VIEW_PEMINJAMAN_PEGAWAI')">-</td>
                 <td th:if="${data.endCode} == null" sec:authorize="hasAnyRole('ROLE_VIEW_PEMINJAMAN_PEGAWAI')">-</td>
-                <td th:text="${data.statusPeminjaman}">k</td>
+                <td th:if="${#strings.equalsIgnoreCase(data.statusPeminjaman, 'WAITING')}">
+                    <span class="badge badge-pill badge-warning">MENUNGGU</span>
+                </td>
+                <td th:if="${#strings.equalsIgnoreCase(data.statusPeminjaman, 'APPROVED')}">
+                    <span class="badge badge-pill badge-info">DI SETUJUI</span>
+                </td>
+                <td th:if="${#strings.equalsIgnoreCase(data.statusPeminjaman, 'ON_GOING')}">
+                    <span class="badge badge-pill badge-primary">SEDANG BERLANGSUNG</span>
+                </td>
+                <td th:if="${#strings.equalsIgnoreCase(data.statusPeminjaman, 'EXPIRED')}">
+                    <span class="badge badge-pill badge-secondary">KADALUARSA</span>
+                </td>
+                <td th:if="${#strings.equalsIgnoreCase(data.statusPeminjaman, 'REJECTED')}">
+                    <span class="badge badge-pill badge-danger">DI TOLAK</span>
+                </td>
+                <td th:if="${#strings.equalsIgnoreCase(data.statusPeminjaman, 'DONE')}">
+                    <span class="badge badge-pill badge-success">SELESAI</span>
+                </td>
                 <td style="width:20%">
                     <div class="text-center">
                         <h4>
@@ -65,8 +82,7 @@
                                    title="Terima">
                                 <i class="typcn typcn-tick"></i></a> |
 
-                                <a th:href="@{/peminjaman/tolak}"
-                                   onclick="return confirm('Apakah anda yakin menolak pengajuan ?')"
+                                <a th:href="@{/peminjaman/tolak(id=${data.id})}"
                                    title="Tolak">
                                     <i class="typcn typcn-delete-outline"></i></a> |
                             </span>

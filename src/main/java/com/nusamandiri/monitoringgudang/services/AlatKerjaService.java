@@ -32,6 +32,13 @@ public class AlatKerjaService {
         SpecificationBuilder<AlatKerja> builder = new SpecificationBuilder<>();
         if (StringUtils.hasText(params.getValue())) builder.with("code/nama", "like", params.getValue());
         if(StringUtils.hasText(params.getType())) builder.with("kategori-id","equal", params.getType());
+        return alatKerjaDao.findAll(builder.build(), pageable);
+    }
+
+    public Page<AlatKerja> getAlatKerjaPage2(CommonSearchDto params, Pageable pageable) {
+        SpecificationBuilder<AlatKerja> builder = new SpecificationBuilder<>();
+        if (StringUtils.hasText(params.getValue())) builder.with("code/nama", "like", params.getValue());
+        if(StringUtils.hasText(params.getType())) builder.with("kategori-id","equal", params.getType());
         if(StringUtils.hasText(Constant.StatusAlatKerja.NOT_USED.toString())) builder.with("status","equal", Constant.StatusAlatKerja.NOT_USED);
         return alatKerjaDao.findAll(builder.build(), pageable);
     }

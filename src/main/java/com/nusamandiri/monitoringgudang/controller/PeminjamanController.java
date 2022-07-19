@@ -1,9 +1,6 @@
 package com.nusamandiri.monitoringgudang.controller;
 
-import com.nusamandiri.monitoringgudang.dto.CommonSearchDto;
-import com.nusamandiri.monitoringgudang.dto.DoneDto;
-import com.nusamandiri.monitoringgudang.dto.OnGoingDto;
-import com.nusamandiri.monitoringgudang.dto.PeminjamanDto;
+import com.nusamandiri.monitoringgudang.dto.*;
 import com.nusamandiri.monitoringgudang.entity.Peminjaman;
 import com.nusamandiri.monitoringgudang.entity.PeminjamanDetail;
 import com.nusamandiri.monitoringgudang.services.PeminjamanService;
@@ -33,6 +30,7 @@ public class PeminjamanController {
     private static final String TOLAK = "peminjaman/tolak";
     private static final String ON_GOING = "peminjaman/on_going";
     private static final String DONE = "peminjaman/done";
+    private static final String DETAIL = "peminjaman/detail";
 
     @Autowired
     private PeminjamanService peminjamanService;
@@ -50,28 +48,34 @@ public class PeminjamanController {
         return FORM;
     }
 
+    @GetMapping("/detail")
+    public String detail(@RequestParam String id, ModelMap modelMap) {
+        modelMap.addAttribute("peminjaman", peminjamanService.getPeminjamanById(id));
+        return DETAIL;
+    }
+
     @GetMapping("/tolak")
     public String tolak(@RequestParam String id, ModelMap modelMap) {
-        modelMap.addAttribute("peminjaman", peminjamanService.getPeminjamanById(id));
+        modelMap.addAttribute("tolakDto", peminjamanService.setTolakDto(id));
         return TOLAK;
     }
 
     @PostMapping("/tolak")
-    public String tolakProses(PeminjamanDto peminjamanDto, BindingResult bindingResult, ModelMap mm, RedirectAttributes redir, Principal principal) {
+    public String tolakProses(TolakDto tolakDto, BindingResult bindingResult, ModelMap mm, RedirectAttributes redir) {
         if (bindingResult.hasErrors()) {
-            mm.addAttribute("", peminjamanDto);
-            return FORM;
+            mm.addAttribute("tolakDto", tolakDto);
+            return TOLAK;
         }
 
         try {
-            peminjamanService.createPeminjaman(peminjamanDto, principal.getName());
-            redir.addFlashAttribute("success", "Permintaan berhasil diajukan");
-            return "redirect:/peminjaman/form";
+            peminjamanService.rejected(tolakDto);
+            redir.addFlashAttribute("success", "Pengajuan berhasil di tolak");
+            return "redirect:/peminjaman";
         } catch (Exception e) {
             e.printStackTrace();
-            mm.addAttribute("peminjamanDto", peminjamanDto);
+            mm.addAttribute("tolakDto", tolakDto);
             mm.addAttribute("error", e.getMessage());
-            return FORM;
+            return TOLAK;
         }
     }
 

@@ -80,6 +80,9 @@
             <div th:if="${#strings.containsIgnoreCase(activeTab,'MASTER_KATEGORI')}"
                  th:include="fragments/leftmenu-kategori :: leftmenu-kategori" th:remove="tag">leftmenu-kategori
             </div>
+            <div th:if="${#strings.containsIgnoreCase(activeTab,'MASTER_ALATKERJA')}"
+                 th:include="fragments/leftmenu-alatkerja :: leftmenu-alatkerja" th:remove="tag">leftmenu-alatkerja
+            </div>
             <div th:if="${#strings.containsIgnoreCase(activeTab,'PEMINJAMAN')}"
                  th:include="fragments/leftmenu-peminjaman :: leftmenu-peminjaman" th:remove="tag">leftmenu-peminjaman
             </div>

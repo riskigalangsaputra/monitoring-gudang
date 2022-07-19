@@ -7,15 +7,21 @@
     <script th:src="@{/assets/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/assets/lib/ionicons/ionicons.js}"></script>
     <script th:src="@{/assets/lib/chart.js/Chart.bundle.min.js}"></script>
-    <!--    <script th:src="@{/assets/lib/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js}"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.1/chart.min.js"></script>
 
     <script th:src="@{/assets/js/azia.js}"></script>
     <script>
         var baseUrl = "[[@{/}]]";
 
          function logout() {
-                document.getElementById("logout").submit();
-            }
+            document.getElementById("logout").submit();
+         }
+
+         $(document).ready(function () {
+            $(".success").delay(4000).slideUp(500, function () {
+                $(this).alert('close');
+            });
+        });
     </script>
 </div>
 </body>
