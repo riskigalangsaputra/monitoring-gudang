@@ -86,6 +86,9 @@
             <div th:if="${#strings.containsIgnoreCase(activeTab,'PEMINJAMAN')}"
                  th:include="fragments/leftmenu-peminjaman :: leftmenu-peminjaman" th:remove="tag">leftmenu-peminjaman
             </div>
+            <div th:if="${#strings.containsIgnoreCase(activeTab,'MASTER_KARYAWAN')}"
+                 th:include="fragments/leftmenu-karyawan :: leftmenu-karyawan" th:remove="tag">leftmenu-karyawan
+            </div>
         </div><!-- az-content-left -->
         <div class="az-content-body pd-lg-l-40 d-flex flex-column">
             <div layout:fragment="mainContent" th:remove="tag"></div>
